@@ -21,6 +21,7 @@ public class AbsentDate {
     public static final String VALIDATION_REGEX = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\\d{2}|20[01]\\d|20"
             + (CURRENT_YEAR % 100) + ")$";
     public final String absentDate;
+    private boolean isNew;
 
     /**
      * Constructs an {@code AbsentDate}.
@@ -29,7 +30,22 @@ public class AbsentDate {
      */
     public AbsentDate(String absentDate) {
         requireNonNull(absentDate);
-        checkArgument(isValidAbsentDate(absentDate), MESSAGE_CONSTRAINTS);
+        this.isNew = true;
+        if (!isValidAbsentDate(absentDate)) {
+            checkArgument(isValidAbsentDate(absentDate), MESSAGE_CONSTRAINTS);
+        }
+        this.absentDate = absentDate;
+    }
+
+    /**
+     * Constructs an {@code AbsentDate}.
+     *
+     * @param absentDate A valid date where student is absent.
+     * @param isDateNew A boolean on whether absentDate has been created before
+     */
+    public AbsentDate(String absentDate, boolean isDateNew) {
+        requireNonNull(absentDate);
+        this.isNew = isDateNew;
         this.absentDate = absentDate;
     }
 

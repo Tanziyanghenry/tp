@@ -220,22 +220,14 @@ class JsonAdaptedPerson {
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final HashMap<AbsentDate, AbsentReason> modelAttendances = new HashMap<>();
-        if (attendances != null) {
-            for (Map.Entry<String, String> entry : attendances.entrySet()) {
-                String dateStr = entry.getKey();
-                String reasonStr = entry.getValue();
+        for (Map.Entry<String, String> entry : attendances.entrySet()) {
+            String dateStr = entry.getKey();
+            String reasonStr = entry.getValue();
 
-                if (!AbsentDate.isValidAbsentDate(dateStr)) {
-                    System.out.println("Invalid date detected: " + dateStr);
-                    throw new IllegalValueException(AbsentDate.MESSAGE_CONSTRAINTS);
-                }
-
-                if (!AbsentReason.isValidAbsentReason(reasonStr)) {
-                    throw new IllegalValueException(AbsentReason.MESSAGE_CONSTRAINTS);
-                }
-
-                modelAttendances.put(new AbsentDate(dateStr), new AbsentReason(reasonStr));
+            if (!AbsentReason.isValidAbsentReason(reasonStr)) {
+                throw new IllegalValueException(AbsentReason.MESSAGE_CONSTRAINTS);
             }
+            modelAttendances.put(new AbsentDate(dateStr, false), new AbsentReason(reasonStr));
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRegisterNumber, modelSex,

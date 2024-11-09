@@ -41,7 +41,6 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_EXAM_NAME = "Midterm%";
     private static final String INVALID_EXAM_SCORE = "101";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_ABSENT_DATE = "2024-13-01";
     private static final String INVALID_ABSENT_REASON = "+";
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -297,21 +296,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidAttendanceDueToInvalidDate_throwsIllegalValueException() {
-        Map<String, String> invalidAttendance = new HashMap<>();
-        invalidAttendance.put(INVALID_ABSENT_DATE, VALID_ABSENT_REASON);
-
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_REGISTER_NUMBER,
-                        VALID_SEX, VALID_STUDENT_CLASS, VALID_ECNAME, VALID_ECNUMBER, VALID_EXAMS, VALID_TAGS,
-                        invalidAttendance, VALID_SUBMISSIONS);
-
-        String expectedMessage = AbsentDate.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidAttendanceDueToInvalidReason_throwsIllegalValueException() {
+    public void toModelType_invalidAttendance_throwsIllegalValueException() {
         Map<String, String> invalidAttendance = new HashMap<>();
         invalidAttendance.put(VALID_ABSENT_DATE, INVALID_ABSENT_REASON);
 

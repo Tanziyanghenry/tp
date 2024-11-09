@@ -14,7 +14,7 @@ public class AbsentDateTest {
 
     @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
-        String invalidDate = "2024-13-01"; // Invalid month
+        String invalidDate = "2024-13-01"; // Invalid format
         assertThrows(IllegalArgumentException.class, () -> new AbsentDate(invalidDate));
     }
 

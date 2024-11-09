@@ -60,7 +60,7 @@ public class Person {
         this.tags.addAll(tags);
         for (Map.Entry<AbsentDate, AbsentReason> entry : attendances.entrySet()) {
             this.attendances.put(
-                    new AbsentDate(entry.getKey().toString()),
+                    new AbsentDate(entry.getKey().toString(), false),
                     new AbsentReason(entry.getValue().toString())
             );
         }
